@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Дети Вселенной | Помощь детям в больницах</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Comfortaa:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="hero">
+        <div class="container">
+            <h1>Каждый ребёнок заслуживает любви</h1>
+            <p>Помогите детям, оставшимся без родителей в больницах</p>
+            <div class="buttons">
+                <a href="#" class="btn donate-btn">Пожертвовать</a>
+                <a href="#volunteer" class="btn btn-outline">Стать волонтёром</a>
+                <a href="#idea" class="btn btn-outline">Подать идею</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="section about">
+        <div class="container">
+            <h2>О проекте</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p><strong>«Дети Вселенной»</strong> — это благотворительный проект, созданный для поддержки детей, оставшихся без попечения родителей и находящихся в больницах.</p>
+                    <p>Наша миссия — обеспечить этих детей не только необходимыми вещами, но и вниманием, заботой и возможностью почувствовать себя нужными.</p>
+                </div>
+                <div class="about-image">
+                    <img src="https://via.placeholder.com/500x300" alt="О проекте Дети Вселенной">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section activities">
+        <div class="container">
+            <h2>Что мы делаем</h2>
+            <div class="activities-grid">
+                <div class="activity">
+                    <h3>Закупка товаров для больниц</h3>
+                    <p>Обеспечиваем детей подгузниками, питанием, лекарствами и другими необходимыми вещами.</p>
+                </div>
+                <div class="activity">
+                    <h3>Привлечение волонтёров</h3>
+                    <p>Организуем посещение детей волонтёрами, которые дарят им внимание и заботу.</p>
+                </div>
+                <div class="activity">
+                    <h3>Проведение мероприятий</h3>
+                    <p>Организуем праздники и развивающие занятия для детей в больницах.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section help" id="donate">
+        <div class="container">
+            <h2>Как вы можете помочь?</h2>
+            <div class="help-options">
+                <div class="option">
+                    <h3>Финансовая поддержка</h3>
+                    <p>Станьте инвестором проекта. Даже небольшая сумма поможет купить подгузники или питание.</p>
+                    <div class="donation-methods">
+                        <button class="method-btn" data-method="qr">По QR-коду</button>
+                        <button class="method-btn" data-method="details">По реквизитам</button>
+                    </div>
+                </div>
+                <div class="option" id="volunteer">
+                    <h3>Стать волонтёром</h3>
+                    <p>Если у вас есть хотя бы пара часов в неделю, вы можете стать для кого-то самым важным взрослым.</p>
+                    <div class="volunteer-info">
+                        <p>Контакты для волонтёров:</p>
+                        <p><strong>Алексей, координатор волонтёров</strong></p>
+                        <p>Телефон: <a href="tel:+79991234567">+7 (999) 123-45-67</a></p>
+                    </div>
+                    <a href="https://forms.gle/vJqpMmTYdCTL6Pqu7" class="btn btn-outline">Заполнить анкету</a>
+                </div>
+                <div class="option" id="idea">
+                    <h3>Подать идею</h3>
+                    <p>Есть идея для мероприятия или улучшения проекта? Поделитесь с нами!</p>
+                    <form id="idea-form" class="idea-form">
+                        <input type="text" placeholder="Ваше имя" required>
+                        <input type="email" placeholder="Ваш email" required>
+                        <textarea placeholder="Опишите вашу идею..." required></textarea>
+                        <button type="submit" class="btn">Отправить идею</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Модальное окно для пожертвований -->
+    <div id="donationModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3>Спасибо, что хотите помочь!</h3>
+            <div id="qr-method" class="donation-method">
+                <p>Отсканируйте QR-код для перевода:</p>
+                <img src="img/qr.jpg" alt="QR-код для пожертвований" class="qr-code">
+            </div>
+            <div id="details-method" class="donation-method" style="display:none;">
+                <div class="bank-details">
+                    <p><strong>Реквизиты для перевода:</strong></p>
+                    <p>Получатель: Благотворительный фонд "Созидание"</p>
+                    <p>ИНН: 1234567890</p>
+                    <p>КПП: 987654321</p>
+                    <p>Банк: ПАО "Сбербанк"</p>
+                    <p>БИК: 044525225</p>
+                    <p>К/с: 30101810400000000225</p>
+                    <p>Р/с: 40703810238000001234</p>
+                    <button class="copy-btn">Копировать реквизиты</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно успешной отправки -->
+    <div id="successModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3>Спасибо!</h3>
+            <p id="success-message">Ваше сообщение успешно отправлено.</p>
+        </div>
+    </div>
+
+    <section class="section cta">
+        <div class="container">
+            <h2>Чужих детей не бывает</h2>
+            <p>Давайте вместе дадим этим малышам шанс почувствовать, что они нужны.</p>
+            <a href="#" class="btn donate-btn">Помочь сейчас</a>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>Проект «Дети Вселенной» при поддержке фонда «Созидание»</p>
+            <p>#ДетиВселенной #Созидание #ПомощьДетям</p>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
