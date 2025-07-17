@@ -18,6 +18,7 @@
                 <a href="#" class="btn donate-btn">Пожертвовать</a>
                 <a href="#volunteer" class="btn btn-outline">Стать волонтёром</a>
                 <a href="#idea" class="btn btn-outline">Подать идею</a>
+                <a href="img/demo_3 (1) (1).pdf" class="btn btn-outline">Посмотреть нашу презентацию</a>
             </div>
         </div>
     </header>
@@ -31,7 +32,7 @@
                     <p>Наша миссия — обеспечить этих детей не только необходимыми вещами, но и вниманием, заботой и возможностью почувствовать себя нужными.</p>
                 </div>
                 <div class="about-image">
-                    <img src="https://via.placeholder.com/500x300" alt="О проекте Дети Вселенной">
+                    <img src="images/about.jpg" alt="О проекте Дети Вселенной">
                 </div>
             </div>
         </div>
@@ -64,10 +65,7 @@
                 <div class="option">
                     <h3>Финансовая поддержка</h3>
                     <p>Станьте инвестором проекта. Даже небольшая сумма поможет купить подгузники или питание.</p>
-                    <div class="donation-methods">
-                        <button class="method-btn" data-method="qr">По QR-коду</button>
-                        <button class="method-btn" data-method="details">По реквизитам</button>
-                    </div>
+                    <a href="#" class="btn donate-btn">Выбрать способ оплаты</a>
                 </div>
                 <div class="option" id="volunteer">
                     <h3>Стать волонтёром</h3>
@@ -96,29 +94,39 @@
         <div class="modal-content">
             <span class="close">&times;</span>
             <h3>Спасибо, что хотите помочь!</h3>
+            
+            <div class="donation-methods">
+                <div class="method-option">
+                    <input type="radio" id="qr-method-radio" name="donation-method" value="qr" checked>
+                    <label for="qr-method-radio">Через QR-код</label>
+                </div>
+                
+                <div class="method-option">
+                    <input type="radio" id="bank-method-radio" name="donation-method" value="bank">
+                    <label for="bank-method-radio">Банковский перевод</label>
+                </div>
+                
+                <div class="method-option">
+                    <input type="radio" id="vk-method-radio" name="donation-method" value="vk">
+                    <label for="vk-method-radio">Через группу ВКонтакте</label>
+                </div>
+            </div>
+            
             <div id="qr-method" class="donation-method">
                 <p>Отсканируйте QR-код для перевода:</p>
                 <img src="img/qr.jpg" alt="QR-код для пожертвований" class="qr-code">
             </div>
-            <div id="details-method" class="donation-method" style="display:none;">
-               <div class="bank-details">
-                    <p><strong>Реквизиты для перевода:</strong></p>
-                    <p>Валюта получаемого перевода: Российский рубль (RUB)</p>
-                    <p>Получатель: ПОЛЕТАЕВА ОЛЬГА АЛЕКСЕЕВНА</p>
-                    <p>Номер счёта: 40817810555179028766</p>
-                    <p>Банк получателя: СЕВЕРО-ЗАПАДНЫЙ БАНК ПАО СБЕРБАНК</p>
-                    <p>БИК: 044030653</p>
-                    <p>Корр. счёт: 30101810500000000653</p>
-                    <p>ИНН: 7707083893</p>
-                    <p>КПП: 784243001</p>
-                    <p>ОКПО: 09171401</p>
-                    <p>ОГРН: 1027700132195</p>
-                    <p>SWIFT-код: SABRRU2P</p>
-                    <p>Почтовый адрес банка: 191124, САНКТ-ПЕТЕРБУРГ, УЛ. КРАСНОГО ТЕКСТИЛЬЩИКА, 2</p>
-                    <p>Почтовый адрес доп.офиса: 195299, Г. САНКТ-ПЕТЕРБУРГ, МУРИНСКАЯ ДОРОГА, Д.53, СТР. 1, ПО. 18-Н</p>
-                    <button class="copy-btn">Копировать реквизиты</button>
+            
+            <div id="bank-method" class="donation-method" style="display:none;">
+                <div class="bank-details">
+                    <p>Для получения банковских реквизитов:</p>
+                    <p>Напишите нам в группу ВК:</p> <a href="https://vk.com/club231474156">https://vk.com/club231474156</a>
                 </div>
-
+            </div>
+            
+            <div id="vk-method" class="donation-method" style="display:none;">
+                <p>Пожертвовать можно через нашу группу ВКонтакте:</p>
+                <a href="https://vk.com/club231474156" class="btn" target="_blank">Перейти в группу</a>
             </div>
         </div>
     </div>
@@ -136,7 +144,6 @@
         <div class="container">
             <h2>Чужих детей не бывает</h2>
             <p>Давайте вместе дадим этим малышам шанс почувствовать, что они нужны.</p>
-            <a href="#" class="btn donate-btn">Помочь сейчас</a>
         </div>
     </section>
 

@@ -1,66 +1,79 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Элементы модального окна
-    const modal = document.getElementById('donationModal');
-    const closeBtn = document.querySelector('.close');
+    // Элементы модальных окон
+    const donationModal = document.getElementById('donationModal');
+    const successModal = document.getElementById('successModal');
+    const closeButtons = document.querySelectorAll('.close');
+    const donateButtons = document.querySelectorAll('.donate-btn');
     
-    // Кнопки для открытия модального окна
-    const donateButtons = document.querySelectorAll('.donate-btn, [href="#donate"]');
+    // Методы оплаты
+    const methodRadios = document.querySelectorAll('input[name="donation-method"]');
+    const donationMethods = document.querySelectorAll('.donation-method');
     
-    // Кнопки выбора метода оплаты
-    const methodButtons = document.querySelectorAll('.method-btn');
-    
-    // Показ модального окна
+    // Форма идеи
+    const ideaForm = document.getElementById('idea-form');
+
+    // Показать модальное окно
+    function showModal(modal) {
+        modal.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+    }
+
+    // Скрыть модальное окно
+    function hideModal(modal) {
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
+
+    // Обработчики для кнопок пожертвования
     donateButtons.forEach(btn => {
         btn.addEventListener('click', function(e) {
             e.preventDefault();
-            modal.style.display = 'block';
-            document.body.style.overflow = 'hidden'; // Блокируем прокрутку страницы
+            showModal(donationModal);
         });
     });
-    
-    // Закрытие модального окна
-    closeBtn.addEventListener('click', function() {
-        modal.style.display = 'none';
-        document.body.style.overflow = 'auto';
+
+    // Обработчики для закрытия модальных окон
+    closeButtons.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const modal = this.closest('.modal');
+            hideModal(modal);
+        });
     });
-    
-    // Закрытие при клике вне окна
+
+    // Закрытие при клике вне модального окна
     window.addEventListener('click', function(e) {
-        if (e.target === modal) {
-            modal.style.display = 'none';
-            document.body.style.overflow = 'auto';
+        if (e.target.classList.contains('modal')) {
+            hideModal(e.target);
         }
     });
-    
+
     // Переключение методов оплаты
-    methodButtons.forEach(btn => {
-        btn.addEventListener('click', function() {
-            const method = this.getAttribute('data-method');
-            showDonationMethod(method);
+    methodRadios.forEach(radio => {
+        radio.addEventListener('change', function() {
+            // Скрываем все методы
+            donationMethods.forEach(method => {
+                method.style.display = 'none';
+            });
+            
+            // Показываем выбранный метод
+            const selectedMethod = document.getElementById(`${this.value}-method`);
+            if (selectedMethod) {
+                selectedMethod.style.display = 'block';
+            }
         });
     });
-    
-    // Показываем QR-код по умолчанию
-    showDonationMethod('qr');
+
+    // Обработка формы идеи
+    if (ideaForm) {
+        ideaForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Здесь можно добавить AJAX-запрос для отправки формы
+            showModal(successModal);
+            this.reset();
+        });
+    }
+
+    // Инициализация - показываем QR-код по умолчанию
+    document.getElementById('qr-method').style.display = 'block';
 });
-
-function showDonationMethod(method) {
-    document.getElementById('qr-method').style.display = 
-        method === 'qr' ? 'block' : 'none';
-    document.getElementById('details-method').style.display = 
-        method === 'details' ? 'block' : 'none';
-}
-
-function copyDetails() {
-    const details = `Получатель: Благотворительный фонд "Созидание"
-ИНН: 1234567890
-КПП: 987654321
-Банк: ПАО "Сбербанк"
-БИК: 044525225
-К/с: 30101810400000000225
-Р/с: 40703810238000001234`;
-    
-    navigator.clipboard.writeText(details)
-        .then(() => alert('Реквизиты скопированы!'))
-        .catch(err => console.error('Ошибка копирования: ', err));
-}

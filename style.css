@@ -1,3 +1,53 @@
+/* Стили для методов оплаты */
+.donation-methods {
+    margin: 25px 0;
+    text-align: left;
+}
+
+.method-option {
+    margin: 10px 0;
+    padding: 12px 15px;
+    background: #f5f5f5;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.method-option:hover {
+    background: #e9e9e9;
+}
+
+.method-option input[type="radio"] {
+    margin-right: 12px;
+    transform: scale(1.2);
+}
+
+.method-option label {
+    cursor: pointer;
+    font-size: 1.1em;
+    vertical-align: middle;
+}
+
+.donation-method {
+    margin: 20px 0;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 8px;
+}
+
+.bank-details {
+    line-height: 1.6;
+}
+
+.qr-code {
+    max-width: 250px;
+    width: 100%;
+    display: block;
+    margin: 0 auto;
+    border: 1px solid #eee;
+    padding: 10px;
+    background: white;
+}
 /* Общие стили */
 :root {
     --primary: #FF7B7B;  /* Тёплый розовый */
