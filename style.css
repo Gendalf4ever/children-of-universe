@@ -108,7 +108,7 @@ h1, h2, h3 {
 
 /* Шапка */
 .hero {
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://example.com/child-photo.jpg');
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('img/uboba.jpg');
     background-size: cover;
     background-position: center;
     color: white;

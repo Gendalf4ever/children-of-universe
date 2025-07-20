@@ -18,6 +18,8 @@ document.addEventListener('DOMContentLoaded', function() {
     function openDonationModal() {
         donationModal.style.display = 'flex';
         document.body.style.overflow = 'hidden';
+        // Всегда показываем QR-код при открытии
+        switchTab('qr-tab');
     }
 
     // Закрытие модального окна
