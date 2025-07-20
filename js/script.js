@@ -1,75 +1,89 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Элементы модальных окон
+    // Инициализация модальных окон
     const donationModal = document.getElementById('donationModal');
     const successModal = document.getElementById('successModal');
     const closeButtons = document.querySelectorAll('.close');
     const donateButtons = document.querySelectorAll('.donate-btn');
     
-    // Методы оплаты
-    const methodRadios = document.querySelectorAll('input[name="donation-method"]');
-    const donationMethods = document.querySelectorAll('.donation-method');
-    
-    // Форма идеи
-    const ideaForm = document.getElementById('idea-form');
+    // Элементы для перевода по карте
+    const showCardBtn = document.querySelector('.btn-show-card');
+    const cardNumberFull = document.querySelector('.card-number-full');
+    const cardNumberMasked = document.querySelector('.card-number-masked');
+    const copyCardBtn = document.querySelector('.copy-btn');
 
-    // Показать модальное окно
-    function showModal(modal) {
-        modal.style.display = 'block';
-        document.body.style.overflow = 'hidden';
+    // Управление модальными окнами
+    function toggleModal(modal, show) {
+        if (modal) {
+            modal.style.display = show ? 'block' : 'none';
+            document.body.style.overflow = show ? 'hidden' : 'auto';
+        }
     }
 
-    // Скрыть модальное окно
-    function hideModal(modal) {
-        modal.style.display = 'none';
-        document.body.style.overflow = 'auto';
-    }
-
-    // Обработчики для кнопок пожертвования
+    // Открытие модального окна пожертвований
     donateButtons.forEach(btn => {
         btn.addEventListener('click', function(e) {
             e.preventDefault();
-            showModal(donationModal);
+            toggleModal(donationModal, true);
         });
     });
 
-    // Обработчики для закрытия модальных окон
+    // Закрытие модальных окон
     closeButtons.forEach(btn => {
         btn.addEventListener('click', function() {
             const modal = this.closest('.modal');
-            hideModal(modal);
+            toggleModal(modal, false);
         });
     });
 
-    // Закрытие при клике вне модального окна
+    // Закрытие при клике вне окна
     window.addEventListener('click', function(e) {
         if (e.target.classList.contains('modal')) {
-            hideModal(e.target);
+            toggleModal(e.target, false);
         }
     });
 
     // Переключение методов оплаты
+    const methodRadios = document.querySelectorAll('input[name="donation-method"]');
     methodRadios.forEach(radio => {
         radio.addEventListener('change', function() {
-            // Скрываем все методы
-            donationMethods.forEach(method => {
+            document.querySelectorAll('.donation-method').forEach(method => {
                 method.style.display = 'none';
             });
-            
-            // Показываем выбранный метод
             const selectedMethod = document.getElementById(`${this.value}-method`);
-            if (selectedMethod) {
-                selectedMethod.style.display = 'block';
-            }
+            if (selectedMethod) selectedMethod.style.display = 'block';
         });
     });
 
+    // Показать полный номер карты
+    if (showCardBtn) {
+        showCardBtn.addEventListener('click', function() {
+            cardNumberMasked.style.display = 'none';
+            cardNumberFull.style.display = 'flex';
+        });
+    }
+
+    // Копирование номера карты
+    if (copyCardBtn) {
+        copyCardBtn.addEventListener('click', function() {
+            const cardNumber = document.getElementById('cardNumber');
+            cardNumber.select();
+            document.execCommand('copy');
+            
+            // Визуальная обратная связь
+            const originalText = copyCardBtn.textContent;
+            copyCardBtn.textContent = 'Скопировано!';
+            setTimeout(() => {
+                copyCardBtn.textContent = originalText;
+            }, 2000);
+        });
+    }
+
     // Обработка формы идеи
+    const ideaForm = document.getElementById('idea-form');
     if (ideaForm) {
         ideaForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            
-            // Здесь можно добавить AJAX-запрос для отправки формы
-            showModal(successModal);
+            toggleModal(successModal, true);
             this.reset();
         });
     }
@@ -77,3 +91,13 @@ document.addEventListener('DOMContentLoaded', function() {
     // Инициализация - показываем QR-код по умолчанию
     document.getElementById('qr-method').style.display = 'block';
 });
+
+// Функция для копирования текста (для использования в других местах)
+function copyToClipboard(text) {
+    const tempInput = document.createElement('input');
+    tempInput.value = text;
+    document.body.appendChild(tempInput);
+    tempInput.select();
+    document.execCommand('copy');
+    document.body.removeChild(tempInput);
+}
