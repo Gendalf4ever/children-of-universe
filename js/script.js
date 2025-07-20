@@ -1,103 +1,97 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Инициализация модальных окон
+    // Элементы модальных окон
     const donationModal = document.getElementById('donationModal');
     const successModal = document.getElementById('successModal');
     const closeButtons = document.querySelectorAll('.close');
+    
+    // Кнопки для открытия модального окна
+    const showPaymentBtn = document.getElementById('showPaymentMethod');
     const donateButtons = document.querySelectorAll('.donate-btn');
     
-    // Элементы для перевода по карте
-    const showCardBtn = document.querySelector('.btn-show-card');
-    const cardNumberFull = document.querySelector('.card-number-full');
-    const cardNumberMasked = document.querySelector('.card-number-masked');
-    const copyCardBtn = document.querySelector('.copy-btn');
+    // Радиокнопки выбора метода оплаты
+    const prePaymentMethods = document.querySelectorAll('input[name="pre-payment-method"]');
+    const modalPaymentMethods = document.querySelectorAll('input[name="donation-method"]');
+    
+    // Методы оплаты в модальном окне
+    const donationMethods = document.querySelectorAll('.donation-method');
+    
+    // Форма идеи
+    const ideaForm = document.getElementById('idea-form');
 
-    // Управление модальными окнами
-    function toggleModal(modal, show) {
-        if (modal) {
-            modal.style.display = show ? 'block' : 'none';
-            document.body.style.overflow = show ? 'hidden' : 'auto';
-        }
+    // Показать модальное окно с выбранным методом
+    function showDonationModal() {
+        // Определяем выбранный метод на главной странице
+        let selectedMethod = 'qr';
+        prePaymentMethods.forEach(radio => {
+            if (radio.checked) {
+                selectedMethod = radio.value;
+            }
+        });
+        
+        // Показываем модальное окно
+        donationModal.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+        
+        // Активируем соответствующий метод в модальном окне
+        document.getElementById(`${selectedMethod}-method-radio`).checked = true;
+        donationMethods.forEach(method => method.style.display = 'none');
+        document.getElementById(`${selectedMethod}-method`).style.display = 'block';
     }
 
-    // Открытие модального окна пожертвований
+    // Закрытие модального окна
+    function closeModal(modal) {
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
+
+    // Обработчики для кнопок пожертвования
     donateButtons.forEach(btn => {
         btn.addEventListener('click', function(e) {
             e.preventDefault();
-            toggleModal(donationModal, true);
+            showDonationModal();
         });
     });
 
-    // Закрытие модальных окон
+    // Обработчик для кнопки "Выбрать способ оплаты"
+    if (showPaymentBtn) {
+        showPaymentBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            showDonationModal();
+        });
+    }
+
+    // Обработчики закрытия модальных окон
     closeButtons.forEach(btn => {
         btn.addEventListener('click', function() {
             const modal = this.closest('.modal');
-            toggleModal(modal, false);
+            closeModal(modal);
         });
     });
 
-    // Закрытие при клике вне окна
+    // Закрытие при клике вне модального окна
     window.addEventListener('click', function(e) {
         if (e.target.classList.contains('modal')) {
-            toggleModal(e.target, false);
+            closeModal(e.target);
         }
     });
 
-    // Переключение методов оплаты
-    const methodRadios = document.querySelectorAll('input[name="donation-method"]');
-    methodRadios.forEach(radio => {
+    // Переключение методов оплаты в модальном окне
+    modalPaymentMethods.forEach(radio => {
         radio.addEventListener('change', function() {
-            document.querySelectorAll('.donation-method').forEach(method => {
+            donationMethods.forEach(method => {
                 method.style.display = 'none';
             });
-            const selectedMethod = document.getElementById(`${this.value}-method`);
-            if (selectedMethod) selectedMethod.style.display = 'block';
+            document.getElementById(`${this.value}-method`).style.display = 'block';
         });
     });
 
-    // Показать полный номер карты
-    if (showCardBtn) {
-        showCardBtn.addEventListener('click', function() {
-            cardNumberMasked.style.display = 'none';
-            cardNumberFull.style.display = 'flex';
-        });
-    }
-
-    // Копирование номера карты
-    if (copyCardBtn) {
-        copyCardBtn.addEventListener('click', function() {
-            const cardNumber = document.getElementById('cardNumber');
-            cardNumber.select();
-            document.execCommand('copy');
-            
-            // Визуальная обратная связь
-            const originalText = copyCardBtn.textContent;
-            copyCardBtn.textContent = 'Скопировано!';
-            setTimeout(() => {
-                copyCardBtn.textContent = originalText;
-            }, 2000);
-        });
-    }
-
     // Обработка формы идеи
-    const ideaForm = document.getElementById('idea-form');
     if (ideaForm) {
         ideaForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            toggleModal(successModal, true);
+            successModal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
             this.reset();
         });
     }
-
-    // Инициализация - показываем QR-код по умолчанию
-    document.getElementById('qr-method').style.display = 'block';
 });
-
-// Функция для копирования текста (для использования в других местах)
-function copyToClipboard(text) {
-    const tempInput = document.createElement('input');
-    tempInput.value = text;
-    document.body.appendChild(tempInput);
-    tempInput.select();
-    document.execCommand('copy');
-    document.body.removeChild(tempInput);
-}
