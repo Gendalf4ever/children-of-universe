@@ -18,7 +18,7 @@
                 <a href="#" class="btn donate-btn">Пожертвовать</a>
                 <a href="#volunteer" class="btn btn-outline">Стать волонтёром</a>
                 <a href="#idea" class="btn btn-outline">Подать идею</a>
-                <a href="assets/children_of_the_universe.pdf" class="btn btn-outline">Посмотреть нашу презентацию</a>
+                <a href="img/children_of_the_universe.pdf" class="btn btn-outline">Посмотреть нашу презентацию</a>
             </div>
         </div>
     </header>
@@ -32,7 +32,7 @@
                     <p>Наша миссия — обеспечить этих детей не только необходимыми вещами, но и вниманием, заботой и возможностью почувствовать себя нужными.</p>
                 </div>
                 <div class="about-image">
-                    <img src="assets/about.jpg" alt="О проекте Дети Вселенной">
+                    <img src="img/about.jpg" alt="О проекте Дети Вселенной">
                 </div>
             </div>
         </div>
@@ -65,19 +65,7 @@
                 <div class="option">
                     <h3>Финансовая поддержка</h3>
                     <p>Станьте инвестором проекта. Даже небольшая сумма поможет купить подгузники или питание.</p>
-                    
-                    <div class="pre-payment-options">
-                        <div class="payment-choice">
-                            <input type="radio" id="pre-qr-choice" name="pre-payment-method" value="qr" checked>
-                            <label for="pre-qr-choice">QR-код</label>
-                        </div>
-                        <div class="payment-choice">
-                            <input type="radio" id="pre-details-choice" name="pre-payment-method" value="bank">
-                            <label for="pre-details-choice">Реквизиты</label>
-                        </div>
-                    </div>
-                    
-                    <button class="btn donate-btn" id="showPaymentMethod">Выбрать способ оплаты</button>
+                    <button class="btn donate-btn">Пожертвовать</button>
                 </div>
                 
                 <div class="option" id="volunteer">
@@ -105,53 +93,52 @@
 
     <!-- Модальное окно для пожертвований -->
     <div id="donationModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h3>Спасибо, что хотите помочь!</h3>
-            
-            <div class="donation-methods">
-                <div class="method-option">
-                    <input type="radio" id="qr-method-radio" name="donation-method" value="qr" checked>
-                    <label for="qr-method-radio">Через QR-код</label>
+        <div class="modal-scroll-container">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h3>Спасибо за вашу поддержку!</h3>
+                
+                <div class="payment-tabs">
+                    <button class="tab-btn active" data-tab="qr-tab">QR-код</button>
+                    <button class="tab-btn" data-tab="bank-tab">Реквизиты</button>
                 </div>
                 
-                <div class="method-option">
-                    <input type="radio" id="bank-method-radio" name="donation-method" value="bank">
-                    <label for="bank-method-radio">Банковский перевод</label>
+                <div id="qr-tab" class="tab-content active">
+                    <p>Отсканируйте QR-код для перевода средств:</p>
+                    <img src="img/qr.jpg" alt="QR-код для пожертвований" class="qr-code">
+                    <p class="hint">Нажмите на QR-код, чтобы сохранить его</p>
                 </div>
                 
-                <div class="method-option">
-                    <input type="radio" id="vk-method-radio" name="donation-method" value="vk">
-                    <label for="vk-method-radio">Через группу ВКонтакте</label>
+                <div id="bank-tab" class="tab-content">
+                    <div class="bank-details">
+            <h3>Реквизиты для перевода:</h3>
+           <p><strong>Валюта получаемого перевода: Российский рубль (RUB)</strong></p> 
+           <p><strong> Получатель: ПОЛЕТАЕВА ОЛЬГА АЛЕКСЕЕВНА</strong></p>
+           <p><strong>Номер счёта: 40817810555179028766</strong></p> 
+             <p><strong>Банк получателя: СЕВЕРО-ЗАПАДНЫЙ БАНК ПАО СБЕРБАНК</strong></p> 
+             <p><strong>БИК: 044030653</strong></p> 
+             <p><strong>Корр. счёт: 30101810500000000653</strong></p> 
+             <p><strong>ИНН: 7707083893</strong></p> 
+             <p><strong>КПП: 784243001</strong></p> 
+             <p><strong>ОКПО: 09171401</strong></p> 
+             <p><strong>ОГРН: 1027700132195</strong></p> 
+             <p><strong>SWIFT-код: SABRRU2P</strong></p> 
+             <p><strong>Почтовый адрес банка: 191124, САНКТ-ПЕТЕРБУРГ, УЛ. КРАСНОГО ТЕКСТИЛЬЩИКА, 2</strong></p> 
+             <p><strong> Почтовый адрес доп.офиса: 195299, Г. САНКТ-ПЕТЕРБУРГ, МУРИНСКАЯ ДОРОГА, Д.53, СТР. 1, ПО. 18-Н</strong></p>
+        </div>
                 </div>
-            </div>
-            
-            <div id="qr-method" class="donation-method">
-                <p>Отсканируйте QR-код для перевода:</p>
-                <img src=" img/qr.jpg" alt="QR-код для пожертвований" class="qr-code">
-            </div>
-            
-            <div id="bank-method" class="donation-method" style="display:none;">
-                <div class="bank-details">
-                    <p>Для получения банковских реквизитов:</p>
-                    <p>1. Напишите нам в группу ВК</p>
-                    <p>2. Или позвоните по телефону: <a href="tel:+79991234567">+7 (999) 123-45-67</a></p>
-                </div>
-            </div>
-            
-            <div id="vk-method" class="donation-method" style="display:none;">
-                <p>Пожертвовать можно через нашу группу ВКонтакте:</p>
-                <a href="https://vk.com/club231474156" class="btn" target="_blank">Перейти в группу</a>
             </div>
         </div>
     </div>
 
     <!-- Модальное окно успешной отправки -->
     <div id="successModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h3>Спасибо!</h3>
-            <p id="success-message">Ваше сообщение успешно отправлено.</p>
+        <div class="modal-scroll-container">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h3>Спасибо!</h3>
+                <p id="success-message">Ваше сообщение успешно отправлено.</p>
+            </div>
         </div>
     </div>
 

@@ -4,38 +4,20 @@ document.addEventListener('DOMContentLoaded', function() {
     const successModal = document.getElementById('successModal');
     const closeButtons = document.querySelectorAll('.close');
     
-    // Кнопки для открытия модального окна
-    const showPaymentBtn = document.getElementById('showPaymentMethod');
+    // Кнопки пожертвования
     const donateButtons = document.querySelectorAll('.donate-btn');
     
-    // Радиокнопки выбора метода оплаты
-    const prePaymentMethods = document.querySelectorAll('input[name="pre-payment-method"]');
-    const modalPaymentMethods = document.querySelectorAll('input[name="donation-method"]');
-    
-    // Методы оплаты в модальном окне
-    const donationMethods = document.querySelectorAll('.donation-method');
+    // Элементы табов в модальном окне
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
     
     // Форма идеи
     const ideaForm = document.getElementById('idea-form');
 
-    // Показать модальное окно с выбранным методом
-    function showDonationModal() {
-        // Определяем выбранный метод на главной странице
-        let selectedMethod = 'qr';
-        prePaymentMethods.forEach(radio => {
-            if (radio.checked) {
-                selectedMethod = radio.value;
-            }
-        });
-        
-        // Показываем модальное окно
-        donationModal.style.display = 'block';
+    // Открытие модального окна пожертвований
+    function openDonationModal() {
+        donationModal.style.display = 'flex';
         document.body.style.overflow = 'hidden';
-        
-        // Активируем соответствующий метод в модальном окне
-        document.getElementById(`${selectedMethod}-method-radio`).checked = true;
-        donationMethods.forEach(method => method.style.display = 'none');
-        document.getElementById(`${selectedMethod}-method`).style.display = 'block';
     }
 
     // Закрытие модального окна
@@ -44,21 +26,32 @@ document.addEventListener('DOMContentLoaded', function() {
         document.body.style.overflow = 'auto';
     }
 
+    // Переключение табов
+    function switchTab(tabId) {
+        // Скрыть все табы
+        tabContents.forEach(tab => {
+            tab.classList.remove('active');
+        });
+        
+        // Убрать активность у всех кнопок
+        tabButtons.forEach(btn => {
+            btn.classList.remove('active');
+        });
+        
+        // Показать выбранный таб
+        document.getElementById(tabId).classList.add('active');
+        
+        // Активировать соответствующую кнопку
+        document.querySelector(`.tab-btn[data-tab="${tabId}"]`).classList.add('active');
+    }
+
     // Обработчики для кнопок пожертвования
     donateButtons.forEach(btn => {
         btn.addEventListener('click', function(e) {
             e.preventDefault();
-            showDonationModal();
+            openDonationModal();
         });
     });
-
-    // Обработчик для кнопки "Выбрать способ оплаты"
-    if (showPaymentBtn) {
-        showPaymentBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            showDonationModal();
-        });
-    }
 
     // Обработчики закрытия модальных окон
     closeButtons.forEach(btn => {
@@ -75,13 +68,11 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Переключение методов оплаты в модальном окне
-    modalPaymentMethods.forEach(radio => {
-        radio.addEventListener('change', function() {
-            donationMethods.forEach(method => {
-                method.style.display = 'none';
-            });
-            document.getElementById(`${this.value}-method`).style.display = 'block';
+    // Переключение табов
+    tabButtons.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const tabId = this.getAttribute('data-tab');
+            switchTab(tabId);
         });
     });
 
@@ -89,9 +80,23 @@ document.addEventListener('DOMContentLoaded', function() {
     if (ideaForm) {
         ideaForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            successModal.style.display = 'block';
+            document.getElementById('success-message').textContent = 'Ваша идея успешно отправлена!';
+            successModal.style.display = 'flex';
             document.body.style.overflow = 'hidden';
             this.reset();
+        });
+    }
+
+    // Сохранение QR-кода при клике
+    const qrCode = document.querySelector('.qr-code');
+    if (qrCode) {
+        qrCode.addEventListener('click', function() {
+            const link = document.createElement('a');
+            link.href = this.src;
+            link.download = 'qr-deti-vselennoi.jpg';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
         });
     }
 });
